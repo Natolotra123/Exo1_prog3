@@ -16,7 +16,7 @@ public class Product {
     }
 
     public String getCategoryName() {
-        return category.getName();
+        return (category != null) ? category.getName() : null;
     }
 
     public int getId() {
