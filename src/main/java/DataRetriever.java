@@ -14,9 +14,9 @@ public class DataRetriever {
 
     public List<Category> getAllCategory()throws SQLException {
         List<Category> categories = new ArrayList<>();
-        String query = "SELECT * FROM Product_category Order by id";
+        String sql = "SELECT * FROM Product_category Order by id";
         try (Connection conn = dbConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(query);
+             PreparedStatement pstmt = conn.prepareStatement(sql);
              ResultSet rs = pstmt.executeQuery()) {
             while (rs.next()) {
                 Category category = new Category(
@@ -36,5 +36,9 @@ public class DataRetriever {
 
     public List<Product> getProductList(int page, int size) throws SQLException {
         List<Product> products = new ArrayList<>();
+        int offset = (page - 1) * size;
+        String sql = "SELECT p.id, p.name, p.price, p.creationDateTime From product" +
+                " LIMIT " + size + " OFFSET " + offset ;
+        return products;
     }
 }
